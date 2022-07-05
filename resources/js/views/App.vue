@@ -9,7 +9,7 @@
 import WIP from "../components/WIP.vue";
 
 export default {
-    name: App,
+    name: 'App',
     components: {
         WIP,
     },
