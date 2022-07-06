@@ -44,6 +44,7 @@ class PostController extends Controller
         $new_post->fill($data);
         $new_post->slug = $this->generatePostSlug($new_post->title);
         $new_post->save();
+
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
@@ -67,7 +68,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $current_post = Post::findOrFail($id);
+        return view('admin.posts.edit', compact('current_post'));
     }
 
     /**
@@ -79,7 +81,14 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->checkValidationRules());
+        $data = $request->all();
+        $current_post = Post::findOrFail($id);
+        $current_post->fill($data);
+        $current_post->slug = $this->generatePostSlug($current_post->title);
+        $current_post->save();
+
+        return redirect()->route('admin.posts.show', ['post' => $current_post->id]);
     }
 
     /**
@@ -90,10 +99,14 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $current_post = Post::findOrFail($id);
+        $current_post->delete();
+
+        return redirect()->route('admin.posts.index');
     }
 
-    private function generatePostSlug($title) {
+    private function generatePostSlug($title)
+    {
         $base_slug = Str::slug($title, '-'); // mio-post
         $slug = $base_slug; // mio-post
         $count = 1;
@@ -107,7 +120,8 @@ class PostController extends Controller
         return $slug;
     }
 
-    private function checkValidationRules() {
+    private function checkValidationRules()
+    {
         return [
             'title' => 'required|max:255',
             'content' => 'required|max:45000'
