@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -57,7 +58,8 @@ class PostController extends Controller
     public function show($id)
     {
         $current_post = Post::findOrFail($id);
-        return view('admin.posts.show', compact('current_post'));
+        $category = $current_post->category;
+        return view('admin.posts.show', compact('current_post', 'category'));
     }
 
     /**
