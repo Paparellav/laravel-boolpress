@@ -18,6 +18,17 @@
         @csrf
 
         <div class="form-group">
+            <label for="category_id">Category</label>
+            <select class="form-control" name="category_id" id="category_id">
+                <option value="">None</option>
+                @foreach ($categories as $category)
+                    <option
+                        value="{{ $category->id }}" {{ $current_post->category && old('category_id', $current_post->category->id) == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" id="title"
                 value="{{ old('title') ? old('title') : $current_post->title }}">
