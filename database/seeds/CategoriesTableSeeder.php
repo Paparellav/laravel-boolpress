@@ -14,7 +14,7 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-            'antipasto',
+            'piatto freddo',
             'primo piatto',
             'secondo piatto',
             'verdura',
