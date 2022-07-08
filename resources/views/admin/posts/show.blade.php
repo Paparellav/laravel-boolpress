@@ -7,9 +7,11 @@
         Category -> {{ $category ? $category->name : 'None' }}
     </p>
     <p>
-        Tags -> 
+        Tags ->
         @forelse ($current_post->tags as $tag)
+            {{-- Stampiamo una virgola solo se non è l'ultimo elemento nel loop --}}
             {{ $tag->name }}{{ $loop->last ? '' : ', ' }}
+            {{-- Stampiamo una virgola solo se non è l'ultimo elemento nel loop --}}
         @empty
             None
         @endforelse

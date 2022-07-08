@@ -22,8 +22,8 @@
             <select class="form-control" name="category_id" id="category_id">
                 <option value="">None</option>
                 @foreach ($categories as $category)
-                    <option
-                        value="{{ $category->id }}" {{ $current_post->category && old('category_id', $current_post->category->id) == $category->id ? 'selected' : '' }}>
+                    <option value="{{ $category->id }}"
+                        {{ $current_post->category && old('category_id', $current_post->category->id) == $category->id ? 'selected' : '' }}>
                         {{ $category->name }}</option>
                 @endforeach
             </select>
@@ -36,6 +36,21 @@
         <div class="form-group">
             <label for="content">Content</label>
             <textarea type="text" class="form-control" name="content" id="content"> {{ old('content') ? old('content') : $current_post->content }} </textarea>
+        </div>
+        <div class="form-group">
+            <h5 class="my-4">Select Tags for your post (1 or many)</h5>
+            @foreach ($tags as $tag)
+                <div class="form-check">
+                    <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}"
+                        id="tag-{{ $tag->id }}" 
+                        {{-- Per ogni tag controlliamo che questo sia incluso nei tag collegati al post.
+                        Se sì si spunta il checked, altrimenti non si fa nulla. --}}
+                        {{ $current_post->tags->contains($tag) || in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="tag-{{ $tag->id }}">
+                        {{ $tag->name }}
+                    </label>
+                </div>
+            @endforeach
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
