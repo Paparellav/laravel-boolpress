@@ -55,7 +55,7 @@
                         </li>
                         <li class="nav-item mb-3">
                             <a class="nav-link" href="{{ route('admin.posts.index') }}">
-                                <i class="fa-solid fa-file"></i>
+                                <i class="fa-solid fa-cannabis"></i>
                                 Posts
                             </a>
                         </li>

@@ -3,10 +3,18 @@
 @section('content')
     <h2> {{ $current_post->title }} </h2>
     <small class="mt-5 mb-5 d-block">Slug: {{ $current_post->slug }}</small>
-    <p style="width: 50%">{{ $current_post->content }}</p>
     <p>
         Category -> {{ $category ? $category->name : 'None' }}
     </p>
+    <p>
+        Tags -> 
+        @forelse ($current_post->tags as $tag)
+            {{ $tag->name }}{{ $loop->last ? '' : ', ' }}
+        @empty
+            None
+        @endforelse
+    </p>
+    <p class="my-5" style="width: 50%">{{ $current_post->content }}</p>
 
     <div class="d-flex justify-content-between" style="max-width: 150px; min-width: 120px">
         <a class="btn btn-primary" href="{{ route('admin.posts.edit', ['post' => $current_post->id]) }}">Update

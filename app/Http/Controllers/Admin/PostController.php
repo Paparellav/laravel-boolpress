@@ -59,7 +59,8 @@ class PostController extends Controller
     {
         $current_post = Post::findOrFail($id);
         $category = $current_post->category;
-        return view('admin.posts.show', compact('current_post', 'category'));
+        $tag = $current_post->tags;
+        return view('admin.posts.show', compact('current_post', 'category', 'tag'));
     }
 
     /**

@@ -24,6 +24,11 @@ class Post extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function tags() 
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+
     public static function generatePostSlug($title)
     {
         $base_slug = Str::slug($title, '-'); // mio-post
