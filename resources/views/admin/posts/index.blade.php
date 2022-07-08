@@ -11,8 +11,19 @@
                     {{-- <img src="..." class="card-img-top" alt="..."> --}}
                     <div class="card-body">
                         <h5 class="card-title">{{ $item->title }}</h5>
-                        {{-- <p class="card-text">{{ $item->content }}</p> --}}
-                        <a href="{{ route('admin.posts.show', ['post' => $item->id]) }}" class="btn btn-primary">Vai al post</a>
+                        <p>
+                            Tags:
+                            @forelse ($item->tags as $tag)
+                                {{-- Stampiamo una virgola solo se non è l'ultimo elemento nel loop --}}
+                                {{ $tag->name }}{{ $loop->last ? '' : ', ' }}
+                                {{-- Stampiamo una virgola solo se non è l'ultimo elemento nel loop --}}
+                            @empty
+                                None
+                            @endforelse
+                        </p>
+                        <a href="{{ route('admin.posts.show', ['post' => $item->id]) }}" class="btn btn-primary">Vai al
+                            post
+                        </a>
                     </div>
                 </div>
             </div>

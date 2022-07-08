@@ -38,7 +38,7 @@
             <textarea type="text" class="form-control" name="content" id="content"> {{ old('content') ? old('content') : $current_post->content }} </textarea>
         </div>
         <div class="form-group">
-            <h5 class="my-4">Select Tags for your post (1 or many)</h5>
+            <h5 class="my-4">Modify tags for your post (1 or many)</h5>
             @foreach ($tags as $tag)
                 <div class="form-check">
                     <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}"
