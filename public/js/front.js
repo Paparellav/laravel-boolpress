@@ -1925,6 +1925,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/posts").then(function (resp) {
         _this.posts = resp.data.results;
       });
+    },
+    truncateContent: function truncateContent(content, maxChar) {
+      if (content.length > maxChar) {
+        return content.substr(0, 250) + "...";
+      }
+
+      return content;
     }
   }
 });
@@ -1980,7 +1987,7 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.content))])])])]);
+    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.truncateContent(item.content, 250)))])])])]);
   }), 0)])]);
 };
 
