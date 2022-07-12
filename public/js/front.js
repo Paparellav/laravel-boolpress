@@ -1911,10 +1911,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WIP",
   data: function data() {
-    return {};
+    return {
+      posts: []
+    };
   },
-  created: function created() {},
-  methods: {}
+  created: function created() {
+    this.getApiCall();
+  },
+  methods: {
+    getApiCall: function getApiCall() {
+      var _this = this;
+
+      axios.get("/api/posts").then(function (resp) {
+        _this.posts = resp.data.results;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -1954,15 +1966,25 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _c("div", [_c("h2", [_vm._v("Post List")]), _vm._v(" "), _c("div", {
+    staticClass: "container"
+  }, [_c("div", {
+    staticClass: "row row-cols-2"
+  }, _vm._l(_vm.posts, function (item) {
+    return _c("div", {
+      key: item.id,
+      staticClass: "col"
+    }, [_c("div", {
+      staticClass: "card mb-4"
+    }, [_c("div", {
+      staticClass: "card-body"
+    }, [_c("h5", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.content))])])])]);
+  }), 0)])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", [_c("h2", [_vm._v("Post List")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
