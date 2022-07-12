@@ -1,12 +1,17 @@
 <template>
     <div>
-        <h2>Work in progress . . .</h2>
+        <h2>Post List</h2>
     </div>
 </template>
 
 <script>
 export default {
     name: "WIP",
+    data() {
+        return {};
+    },
+    created() {},
+    methods: {},
 };
 </script>
 

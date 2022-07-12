@@ -24,7 +24,7 @@
         <form action="{{ route('admin.posts.destroy', ['post' => $current_post->id]) }}" method="post">
             @csrf
             @method('delete')
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Sei sicuro fratello?')">Delete</button>
         </form>
     </div>
 @endsection
