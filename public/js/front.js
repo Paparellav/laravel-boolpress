@@ -1912,23 +1912,31 @@ __webpack_require__.r(__webpack_exports__);
   name: "WIP",
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      currentPage: 1,
+      lastPage: 0
     };
   },
   created: function created() {
-    this.getApiCall();
+    this.getApiCall(1);
   },
   methods: {
-    getApiCall: function getApiCall() {
+    getApiCall: function getApiCall(numbOfPages) {
       var _this = this;
 
-      axios.get("/api/posts").then(function (resp) {
-        _this.posts = resp.data.results;
+      axios.get("/api/posts", {
+        params: {
+          page: numbOfPages
+        }
+      }).then(function (resp) {
+        _this.posts = resp.data.results.data;
+        _this.currentPage = resp.data.results.current_page;
+        _this.lastPage = resp.data.results.last_page;
       });
     },
     truncateContent: function truncateContent(content, maxChar) {
       if (content.length > maxChar) {
-        return content.substr(0, 250) + "...";
+        return content.substr(0, maxChar) + "...";
       }
 
       return content;
@@ -1973,9 +1981,11 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("h2", [_vm._v("Post List")]), _vm._v(" "), _c("div", {
+  return _c("div", [_c("div", {
     staticClass: "container"
-  }, [_c("div", {
+  }, [_c("h2", {
+    staticClass: "mt-5 mb-5 text-center"
+  }, [_vm._v("Post List")]), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-2"
   }, _vm._l(_vm.posts, function (item) {
     return _c("div", {
@@ -1987,8 +1997,63 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.truncateContent(item.content, 250)))])])])]);
-  }), 0)])]);
+    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.truncateContent(item.content, 300)))])])])]);
+  }), 0), _vm._v(" "), _c("nav", {
+    attrs: {
+      "aria-label": "..."
+    }
+  }, [_c("ul", {
+    staticClass: "pagination"
+  }, [_c("li", {
+    staticClass: "page-item",
+    "class": {
+      disabled: _vm.currentPage === 1
+    }
+  }, [_c("a", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#",
+      tabindex: "-1"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApiCall(_vm.currentPage - 1);
+      }
+    }
+  }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l(_vm.lastPage, function (n) {
+    return _c("li", {
+      key: n,
+      staticClass: "page-item",
+      "class": {
+        active: _vm.currentPage === n
+      }
+    }, [_c("a", {
+      staticClass: "page-link",
+      attrs: {
+        href: "#"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.getApiCall(n);
+        }
+      }
+    }, [_vm._v(_vm._s(n))])]);
+  }), _vm._v(" "), _c("li", {
+    staticClass: "page-item",
+    "class": {
+      disabled: _vm.currentPage === _vm.lastPage
+    }
+  }, [_c("a", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApiCall(_vm.currentPage + 1);
+      }
+    }
+  }, [_vm._v("Next")])])], 2)])])]);
 };
 
 var staticRenderFns = [];
