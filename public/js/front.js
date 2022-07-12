@@ -1914,7 +1914,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       posts: [],
       currentPage: 1,
-      lastPage: 0
+      lastPage: 0,
+      totalPosts: 0
     };
   },
   created: function created() {
@@ -1932,6 +1933,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.posts = resp.data.results.data;
         _this.currentPage = resp.data.results.current_page;
         _this.lastPage = resp.data.results.last_page;
+        _this.totalPosts = resp.data.results.total;
       });
     },
     truncateContent: function truncateContent(content, maxChar) {
@@ -1984,8 +1986,10 @@ var render = function render() {
   return _c("div", [_c("div", {
     staticClass: "container"
   }, [_c("h2", {
-    staticClass: "mt-5 mb-5 text-center"
-  }, [_vm._v("Post List")]), _vm._v(" "), _c("div", {
+    staticClass: "mt-5 mb-3 text-center"
+  }, [_vm._v("Post List")]), _vm._v(" "), _c("h4", {
+    staticClass: "text-center mt-3 mb-5"
+  }, [_vm._v("Post trovati: " + _vm._s(_vm.totalPosts))]), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-2"
   }, _vm._l(_vm.posts, function (item) {
     return _c("div", {
@@ -1998,7 +2002,9 @@ var render = function render() {
     }, [_c("h5", {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.truncateContent(item.content, 300)))])])])]);
-  }), 0), _vm._v(" "), _c("nav", {
+  }), 0), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-center mt-5"
+  }, [_c("nav", {
     attrs: {
       "aria-label": "..."
     }
@@ -2053,7 +2059,7 @@ var render = function render() {
         return _vm.getApiCall(_vm.currentPage + 1);
       }
     }
-  }, [_vm._v("Next")])])], 2)])])]);
+  }, [_vm._v("Next")])])], 2)])])])]);
 };
 
 var staticRenderFns = [];
