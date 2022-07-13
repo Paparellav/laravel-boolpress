@@ -66,7 +66,7 @@
 
 <script>
 export default {
-    name: "WIP",
+    name: "PostList",
     data() {
         return {
             posts: [],

@@ -1,16 +1,17 @@
 <template>
     <div>
-        <WIP />
+        <AppHeader />
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import WIP from "../components/WIP.vue";
+import AppHeader from "../components/AppHeader.vue";
 
 export default {
-    name: 'App',
+    name: "App",
     components: {
-        WIP,
+        AppHeader,
     },
 };
 </script>
