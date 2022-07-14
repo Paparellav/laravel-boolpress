@@ -43,6 +43,15 @@
                                 Blog
                             </router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link
+                                class="nav-link active"
+                                aria-current="page"
+                                :to="{ name: 'tags' }"
+                            >
+                                Tags
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
             </div>

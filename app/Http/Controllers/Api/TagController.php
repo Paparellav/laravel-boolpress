@@ -8,7 +8,17 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    public function show($slug) 
+
+    public function index()
+    {
+        $tags = Tag::all();
+        return response()->json([
+            'success' => true,
+            'results' => $tags
+        ]);
+    }
+
+    public function show($slug)
     {
         $single_tag = Tag::where('slug', $slug)->with(['posts'])->first();
         if ($single_tag) {

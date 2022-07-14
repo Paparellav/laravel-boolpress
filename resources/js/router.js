@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage.vue";
 import AboutUs from "./pages/AboutUs.vue";
 import Blog from "./pages/Blog.vue";
 import SinglePost from "./pages/SinglePost.vue";
+import Tags from "./pages/Tags.vue";
 import SingleTag from "./pages/SingleTag.vue";
 import NotFound from "./pages/NotFound.vue";
 
@@ -32,6 +33,11 @@ const router = new VueRouter({
             path: "/blog/:slug",
             name: "single-post",
             component: SinglePost,
+        },
+        {
+            path: "/tags",
+            name: "tags",
+            component: Tags,
         },
         {
             path: "/tags/:slug",

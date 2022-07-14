@@ -23,6 +23,9 @@
                 </div>
                 <!-- Single Card -->
             </div>
+            <router-link :to="{ name: 'tags' }">
+                <button class="btn btn-primary">Come back to Tags List</button>
+            </router-link>
         </section>
         <section v-else>Waiting a second . . .</section>
     </div>
