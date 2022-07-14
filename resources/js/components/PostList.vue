@@ -2,7 +2,9 @@
     <div>
         <div class="container">
             <h2 class="mt-5 mb-3 text-center">Post List</h2>
-            <h4 class="text-center mt-3 mb-5">Post trovati: {{ totalPosts }}</h4>
+            <h4 class="text-center mt-3 mb-5">
+                Post trovati: {{ totalPosts }}
+            </h4>
             <div class="row row-cols-2">
                 <!-- Single Card -->
                 <div v-for="item in posts" :key="item.id" class="col">
@@ -10,6 +12,14 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ item.title }}</h5>
                             <p>{{ truncateContent(item.content, 300) }}</p>
+                            <router-link
+                                :to="{
+                                    name: 'single-post',
+                                    params: { slug: item.slug },
+                                }"
+                                class="card-link"
+                                >Read post</router-link
+                            >
                         </div>
                     </div>
                 </div>
