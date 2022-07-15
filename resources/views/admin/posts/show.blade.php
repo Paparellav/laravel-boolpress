@@ -3,7 +3,10 @@
 @section('content')
     <h2> {{ $current_post->title }} </h2>
     <small class="mt-5 mb-5 d-block">Slug: {{ $current_post->slug }}</small>
-    <p>
+    @if ($current_post->image)
+        <img src="{{ asset('storage/' . $current_post->image) }}" alt="{{ $current_post->title }}">
+    @endif
+    <p class="mt-4">
         Category -> {{ $category ? $category->name : 'None' }}
     </p>
     <p>

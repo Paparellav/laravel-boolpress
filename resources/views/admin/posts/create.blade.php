@@ -3,6 +3,7 @@
 @section('content')
     <h1>Create a new post</h1>
 
+    {{-- Schermata che visualizza gli errori (se dovessero essercene) --}}
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -13,10 +14,11 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.posts.store') }}" method="post">
+    <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
         @method('post')
         @csrf
 
+        {{-- Input categorie --}}
         <div class="form-group">
             <label for="category_id">Category</label>
             <select class="form-control" name="category_id" id="category_id">
@@ -28,14 +30,20 @@
                 @endforeach
             </select>
         </div>
+
+        {{-- Input Titolo --}}
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
         </div>
+
+        {{-- Input descrizione --}}
         <div class="form-group">
             <label for="content">Content</label>
             <textarea type="text" class="form-control" name="content" id="content"> {{ old('content') }} </textarea>
         </div>
+
+        {{-- Input Tag --}}
         <div class="form-group">
             <h5 class="my-4">Select tags for your post (1 or many)</h5>
             @foreach ($tags as $tag)
@@ -51,6 +59,14 @@
                 </div>
             @endforeach
         </div>
+
+        {{-- Input immagine --}}
+        <div>
+            <label for="image">Select an image </label>
+            <input type="file" id="image" name="image">
+        </div>
+
+        {{-- Submit button --}}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

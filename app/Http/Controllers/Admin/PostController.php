@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Category;
+use App\Mail\NewPostNotificationToAdmin;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Expr\New_;
 
 class PostController extends Controller
 {
@@ -43,6 +47,13 @@ class PostController extends Controller
     {
         $request->validate($this->checkValidationRules());
         $data = $request->all();
+
+        // Se l'immagine è presente salviamo l'immagine
+        if (isset($data['image'])) {
+            $image = Storage::put('post_images', $data['image']);
+            $data['image'] = $image;
+        }
+
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->slug = Post::generatePostSlug($new_post->title);
@@ -53,6 +64,8 @@ class PostController extends Controller
             // tramite la funzione sync andiamo a riscrivere l'array dei tags
             $new_post->tags()->sync($data['tags']);
         }
+
+        Mail::to('admin@boolpress.it')->send(new NewPostNotificationToAdmin());
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
@@ -130,7 +143,10 @@ class PostController extends Controller
     {
         return [
             'title' => 'required|max:255',
-            'content' => 'required|max:45000'
+            'content' => 'required|max:45000',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id',
+            'image' => 'image|max:1024'
         ];
     }
 }
