@@ -31,7 +31,7 @@
                                 aria-current="page"
                                 :to="{ name: 'about-us' }"
                             >
-                                About Us
+                                About us
                             </router-link>
                         </li>
                         <li class="nav-item">
@@ -50,6 +50,15 @@
                                 :to="{ name: 'tags' }"
                             >
                                 Tags
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link
+                                class="nav-link active"
+                                aria-current="page"
+                                :to="{ name: 'contact-us' }"
+                            >
+                                Contact us
                             </router-link>
                         </li>
                     </ul>

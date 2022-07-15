@@ -15,25 +15,24 @@ class LeadController extends Controller
     {
         $data = $request->all();
 
-        $validator = Validator::make($data, $this->svalidationsRules());
+        $validator = Validator::make($data, $this->validationsRules());
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'errors' => $validator->errors()
             ]);
         }
 
-        
         $new_lead = new Lead();
         $new_lead->fill($data);
         $new_lead->save();
+                
+        Mail::to('admin@boolpress.it')->send(new NewContactRequest($new_lead));
 
         return response()->json([
             'success' => true
         ]);
-
-        Mail::to('admin@boolpress.it')->send(new NewContactRequest($new_lead));
     }
 
     private function validationsRules()

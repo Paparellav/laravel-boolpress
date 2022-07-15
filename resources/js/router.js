@@ -9,6 +9,7 @@ import Blog from "./pages/Blog.vue";
 import SinglePost from "./pages/SinglePost.vue";
 import Tags from "./pages/Tags.vue";
 import SingleTag from "./pages/SingleTag.vue";
+import ContactUs from "./pages/ContactUs.vue";
 import NotFound from "./pages/NotFound.vue";
 
 const router = new VueRouter({
@@ -43,6 +44,11 @@ const router = new VueRouter({
             path: "/tags/:slug",
             name: "single-tag",
             component: SingleTag,
+        },
+        {
+            path: "/contact-us",
+            name: "contact-us",
+            component: ContactUs,
         },
         {
             path: "/*",
