@@ -12,6 +12,9 @@
     <h2 class="text-center">
         E' stato creato un nuovo post.
     </h2>
+    <h2> {{ $post->title }} </h2>
+    <p class="my-5" style="width: 50%">{{ $post->content }}</p>
+    <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">Read post</a>
 </body>
 
 </html>

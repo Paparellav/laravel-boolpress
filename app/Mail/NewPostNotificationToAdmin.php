@@ -11,14 +11,15 @@ class NewPostNotificationToAdmin extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $post;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($_post)
     {
-        //
+        $this->post = $_post;
     }
 
     /**
@@ -28,6 +29,7 @@ class NewPostNotificationToAdmin extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.new-post-notification-to-admin');
+        $post = $this->post;
+        return $this->view('mails.new-post-notification-to-admin', compact('post'));
     }
 }

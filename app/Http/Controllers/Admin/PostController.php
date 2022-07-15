@@ -65,7 +65,7 @@ class PostController extends Controller
             $new_post->tags()->sync($data['tags']);
         }
 
-        Mail::to('admin@boolpress.it')->send(new NewPostNotificationToAdmin());
+        Mail::to('admin@boolpress.it')->send(new NewPostNotificationToAdmin($new_post));
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
@@ -110,7 +110,7 @@ class PostController extends Controller
         $request->validate($this->checkValidationRules());
 
         $data = $request->all();
-        
+
         $current_post = Post::findOrFail($id);
 
         // Se l'utente modifica l'immagine
@@ -151,6 +151,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $current_post = Post::findOrFail($id);
+        if($current_post->image) {
+            Storage::delete($current_post->image);
+        }
         $current_post->delete();
 
         return redirect()->route('admin.posts.index');
