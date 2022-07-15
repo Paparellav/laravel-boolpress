@@ -108,8 +108,25 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate($this->checkValidationRules());
+
         $data = $request->all();
+        
         $current_post = Post::findOrFail($id);
+
+        // Se l'utente modifica l'immagine
+        if (isset($data['image'])) {
+            // se l'immagine effettivamente è diversa dalla precedente
+            if ($current_post->image) {
+                // Elimina l'immagine precedente
+                Storage::delete($current_post->image);
+            }
+
+            // Salva la nuova immagine
+            $image = Storage::put('post_images', $data['image']);
+            $data['image'] = $image;
+        }
+
+
         $current_post->fill($data);
         $current_post->slug = Post::generatePostSlug($current_post->title);
         $current_post->save();
